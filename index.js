@@ -15,9 +15,9 @@ const pool = new Pool({
     port: process.env.DB_PORT,
 });
 
-app.get("/", async (req, res) => {
+app.get("/players_scores", async (req, res) => {
     try {
-        const result = await pool.query("SELECT * FROM players");
+        const result = await pool.query("SELECT players.name, games.title, scores.score FROM scores JOIN games ON games.id = game_id JOIN players ON players.id = player_id")
         res.json(result.rows);
     } catch (error) {
         res.status(500).send(error);
